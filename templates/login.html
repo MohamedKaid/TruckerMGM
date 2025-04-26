@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Trucker Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}" />
+</head>
+<body>
+    <div class="login-container">
+        <form class="login-card" id="login-form" method="POST">
+            <h2>Log In</h2>
+            <p>Please log in to your account</p>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+            <div class="form-footer">
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="cta-button primary">Login</button>
+
+            <p class="or-separator">OR</p>
+
+            <!-- Google Sign In Button -->
+            <button type="button" id="google-signin" class="cta-button google">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                Sign in with Google
+            </button>            
+
+            <p class="signup-link">Don’t have an account? <a href="#">Sign Up</a></p>
+        </form>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+      // Import the Firebase SDKs
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+      import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+      // Your Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyB7gmCZeAV59BeqByaZDpuOxJqCg7FzBUo",
+        authDomain: "trucker-mgm.firebaseapp.com",
+        projectId: "trucker-mgm",
+        storageBucket: "trucker-mgm.firebasestorage.app",
+        messagingSenderId: "278495925477",
+        appId: "1:278495925477:web:b3c5e224845d84ee22700c",
+        measurementId: "G-E194CPE316"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth();
+
+      // Email/Password Login
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        const idToken = await user.getIdToken();
+
+        // Send token to backend
+        await fetch('/sessionLogin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ idToken })
+        });
+
+        // Redirect after setting session
+        window.location.href = '/dashboard';
+         
+      });
+
+      // Google Sign-In
+      const googleProvider = new GoogleAuthProvider();
+      const googleButton = document.getElementById('google-signin');
+      googleButton.addEventListener('click', async () => {
+
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+
+        const idToken = await user.getIdToken();
+
+        await fetch('/sessionLogin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ idToken })
+        });
+
+        window.location.href = '/dashboard';
+        
+      });
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log("Form submitted!");
+        // Rest of your login code...
+      });
+      
+    </script>
+
+</body>
+</html>
