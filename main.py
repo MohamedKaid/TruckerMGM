@@ -39,6 +39,13 @@ def session_login():
     except Exception as e:
         print(e)
         return jsonify({"message": "Invalid ID token"}), 401
+    
+@app.route('/dashboard')
+def dashboard():
+    if 'username' in session:
+        return render_template('dashboard.html', username=session['username'])
+    return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

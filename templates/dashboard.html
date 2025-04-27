@@ -4,11 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Trucker Management</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
 </head>
 <body>
-    <h1>Welcome to Your Dashboard</h1>
-    <p>You are now logged in!</p>
-    <a href="/logout">Logout</a>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h2>Dispatcher</h2>
+            <ul>
+                <li><a href="#" id="drivers-tab">Drivers</a></li>
+                <li><a href="#" id="loads-tab">Loads</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <h1>Welcome, {{ username }}</h1>
+            <p>Select a tab from the sidebar to begin.</p>
+        </main>
+    </div>
+
 </body>
 </html>
