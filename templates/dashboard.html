@@ -13,10 +13,11 @@
         <nav class="sidebar">
             <h2>Dispatcher</h2>
             <ul>
-                <li><a href="#" id="drivers-tab">Drivers</a></li>
-                <li><a href="#" id="loads-tab">Loads</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><button class="sidebar-btn" id="drivers-tab">Drivers</button></li>
+                <li><button class="sidebar-btn" id="loads-tab">Loads</button></li>
+                <li><a href="/logout" class="sidebar-logout">Logout</a></li>
             </ul>
+            
         </nav>
 
         <!-- Main Content -->
@@ -25,6 +26,160 @@
             <p>Select a tab from the sidebar to begin.</p>
         </main>
     </div>
+
+    <script>
+        const driversTab = document.getElementById('drivers-tab');
+        const loadsTab = document.getElementById('loads-tab');
+        const mainContent = document.getElementById('main-content');
+      
+        async function fetchAndFade(url, builder) {
+          mainContent.style.opacity = 0;
+      
+          const response = await fetch(url);
+          const data = await response.json();
+          await new Promise(resolve => setTimeout(resolve, 300)); // Small wait for fade effect
+      
+          mainContent.innerHTML = builder(data);
+      
+          mainContent.style.opacity = 1;
+        }
+      
+        driversTab.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            const response = await fetch('/drivers');
+            const drivers = await response.json();
+            
+            let driverHTML = '<h1>Drivers List</h1><ul>';
+            drivers.forEach((driver, index) => {
+                if (driver.status === true){
+                    driverHTML += `
+                    <li>
+                        ${driver.name}
+                        <span class="status-badge available">Available</span>
+                        <button class="assign-btn" onclick="assignLoad(${index})">Assign Load</button>
+                    </li>
+                    `;
+                }else{
+                    driverHTML += `
+                    <li>
+                        ${driver.name}
+                        <span class="status-badge unavailable">Unavailable</span>
+                    </li>
+                    `;
+                }
+                
+            });
+            driverHTML += '</ul>';
+          
+            mainContent.innerHTML = driverHTML;
+          });
+          
+      
+        loadsTab.addEventListener('click', (e) => {
+          e.preventDefault();
+          fetchAndFade('/loads', (loads) => {
+            let html = '<h1>Available Loads</h1><ul>';
+            loads.forEach(load => {
+                if (load.status === true){
+                    html += `<li>${load.origin} → ${load.destination} 
+                        <span class="status-badge available">Available</span>
+                    </li>`;
+                }else{
+                    html += `<li>${load.origin} → ${load.destination} 
+                        <span class="status-badge unavailable">Unavailable</span>
+                    </li>`;
+                }
+              
+            });
+            html += '</ul>';
+            return html;
+          });
+        });
+      </script>
+
+      <!-- assign loads -->
+      <script>
+        async function assignLoad(driverIndex) {
+            const driverResponse = await fetch('/drivers');
+            const drivers = await driverResponse.json();
+            const driver = drivers[driverIndex];
+          
+            const loadResponse = await fetch('/loads');
+            const loads = await loadResponse.json();
+          
+            // Filter only AVAILABLE loads
+            const availableDrivers = drivers.filter(driver => driver.status === true);
+            const availableLoads = loads.filter(load => load.status === true);
+          
+            if (availableLoads.length === 0) {
+              mainContent.innerHTML = `
+                <h1>No Available Loads</h1>
+                <p>All loads are currently assigned or in transit.</p>
+                <button class="assign-btn" onclick="document.getElementById('drivers-tab').click()">Back to Drivers</button>
+              `;
+              return;
+            }
+          
+            // Build a simple select dropdown to assign available load
+            let assignHTML = `
+              <h1>Assign Load to ${driver.name}</h1>
+              <form onsubmit="submitAssignment(event, ${driverIndex})">
+                <select id="load-select">
+                  ${availableLoads.map((load, index) => `
+                    <option value="${index}">${load.origin} → ${load.destination}</option>
+                  `).join('')}
+                </select>
+                <br><br>
+                <button type="submit" class="assign-btn">Assign</button>
+              </form>
+            `;
+          
+            mainContent.innerHTML = assignHTML;
+        }
+      
+        async function submitAssignment(event, driverIndex) {
+            event.preventDefault();
+          
+            const loadIndex = document.getElementById('load-select').value;
+          
+            // Get latest data
+            const driverResponse = await fetch('/drivers');
+            const drivers = await driverResponse.json();
+            const driver = drivers[driverIndex];
+          
+            const loadResponse = await fetch('/loads');
+            const loads = await loadResponse.json();
+            const availableLoads = loads.filter(load => load.status === true);
+            const load = availableLoads[loadIndex];
+          
+            // Send POST to backend
+            const response = await fetch('/assign', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                driver_id: driver.id,
+                load_id: load.id
+              })
+            });
+          
+            const result = await response.json();
+            if (response.ok) {
+              alert(result.message);
+            } else {
+              alert("Error assigning load: " + result.error);
+            }
+          
+            // Go back to drivers tab
+            document.getElementById('drivers-tab').click();
+          }
+          
+      </script>
+      
+      
+      
 
 </body>
 </html>
