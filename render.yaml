@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: trucker-dashboard
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn main:app
+    envVars:
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: firebase_admin_key.json
