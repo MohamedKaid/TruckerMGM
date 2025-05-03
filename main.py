@@ -16,7 +16,12 @@ cred = credentials.Certificate('firebase_admin.json')
 
 @app.route('/')
 def home():
-    return redirect(url_for('login'))
+    return redirect(url_for('laning'))
+
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
+
 
 @app.route('/login')
 def login():
