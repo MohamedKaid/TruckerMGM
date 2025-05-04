@@ -7,29 +7,81 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
 </head>
 <body>
-  <header class="hero">
-    <h1>TruckerMGM</h1>
-    <p>Smart Load Assignment & Driver Management</p>
-    <a href="{{ url_for('login') }}" class="cta-button">Get Started</a>
-  </header>
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>LET’S MOVE FREIGHT SMARTER</h1>
+          <p>TruckerMGM helps you assign loads, track drivers, and manage everything — in real time.</p>
+          <a href="{{ url_for('login') }}" class="cta-button">Get Started</a>
+        </div>
+    </header>
+    
+    <section class="mission">
+        <div class="mission-content">
+          <div class="mission-text">
+            <h2>OUR MISSION</h2>
+            <p>
+              TruckerMGM was built to simplify load dispatching and document management for small trucking operations. 
+              We help dispatchers and fleet owners stay organized, efficient, and stress-free on the road and off.
+            </p>
+      </section>
 
-  <section class="features">
-    <div class="feature-card">
-      <h3>📦 Assign Loads</h3>
-      <p>Easily assign available loads to drivers in real time.</p>
-    </div>
-    <div class="feature-card">
-      <h3>🚛 Track Drivers</h3>
-      <p>Monitor availability and load assignments.</p>
-    </div>
-    <div class="feature-card">
-      <h3>📁 Bookkeeping</h3>
-      <p>Keep records of documents, paystubs, and invoices.</p>
-    </div>
-  </section>
+      <section class="features">
+        <h2>WHAT YOU GET</h2>
+        <div class="features-grid">
+          <div class="feature-box">
+            <span class="feature-number">1</span>
+            <h3>Assign Loads</h3>
+            <p>Quickly assign loads to available drivers with just a few clicks.</p>
+          </div>
+          <div class="feature-box">
+            <span class="feature-number">2</span>
+            <h3>Track Drivers</h3>
+            <p>Monitor driver availability and status across your fleet in real time.</p>
+          </div>
+          <div class="feature-box">
+            <span class="feature-number">3</span>
+            <h3>Organize Docs</h3>
+            <p>Store and access driver and load documents by month or type.</p>
+          </div>
+          <div class="feature-box">
+            <span class="feature-number">4</span>
+            <h3>Bookkeeping</h3>
+            <p>Keep tabs on paystubs, invoices, and load earnings for your business.</p>
+          </div>
+        </div>
+      </section>
 
-  <footer>
-    <p>Built by Mohamed Kaid • <a href="https://github.com/MohamedKaid">GitHub</a></p>
-  </footer>
+      <section class="testimonials">
+        <h2>WHAT OUR USERS SAY</h2>
+        <div class="testimonial-grid">
+          <div class="testimonial">
+            <p>“TruckerMGM changed how I manage my fleet. Load assignments take seconds now.”</p>
+            <h4>— Sarah M., Dispatcher</h4>
+          </div>
+          <div class="testimonial">
+            <p>“I used to track everything in spreadsheets. This does it all for me, and it looks amazing.”</p>
+            <h4>— James R., Owner Operator</h4>
+          </div>
+          <div class="testimonial">
+            <p>“Love how easy it is to view all my drivers and assign work. Total game changer.”</p>
+            <h4>— Rafael D., Fleet Manager</h4>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact">
+        <h2>GET IN TOUCH</h2>
+        <form action="#" method="POST">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" rows="4" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+      
+      <footer>
+        <p>© 2025 TruckerMGM • Built by Mohamed Kaid • <a href="https://github.com/MohamedKaid" target="_blank">GitHub</a></p>
+      </footer>
 </body>
 </html>

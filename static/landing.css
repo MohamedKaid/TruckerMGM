@@ -1,47 +1,269 @@
-body {
+/* landing.css - TruckerMGM */
+
+:root {
+    --primary-bg: #1a1d24;
+    --accent-color: #469ef0;
+    --secondary-bg: #2a2e39;
+    --card-bg: #333;
+    --text-color: white;
+    --hover-light: #e0e0e0;
+    --hover-accent: #2f85d0;
+    --footer-bg: #111;
+    --subtext-color: #ccc;
+  }
+  
+  body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #1a1d24;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    text-align: center;
+    scroll-behavior: smooth;
+  }
+  
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    background: url('/static/image/hero_BG.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
   
-  .hero {
-    padding: 100px 20px;
-    background: #469ef0;
-    color: white;
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  .hero-content {
+    z-index: 2;
+    max-width: 800px;
+    padding: 20px;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
   }
   
   .cta-button {
-    background: white;
-    color: #1a1d24;
-    padding: 10px 20px;
+    background: var(--accent-color);
+    color: white;
+    padding: 14px 28px;
     font-weight: bold;
     text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    display: inline-block;
+    border-radius: 8px;
+    transition: background 0.3s;
   }
   
-  .features {
+  .cta-button:hover {
+    background: var(--hover-accent);
+  }
+  
+
+
+  /* Mission section */
+  .mission {
+    background-color: white;
+    color: #1a1d24;
+    padding: 80px 20px;
+  }
+  
+  .mission-content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 50px 20px;
-    background-color: #2a2e39;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 1100px;
+    margin: 0 auto;
   }
   
-  .feature-card {
-    background: #333;
-    margin: 15px;
+  .mission-text {
+    flex: 1 1 400px;
     padding: 20px;
+  }
+  
+  .mission-text h2 {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .mission-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .mission-image {
+    flex: 1 1 400px;
+    padding: 20px;
+  }
+  
+  .mission-image img {
+    width: 100%;
     border-radius: 10px;
-    width: 250px;
+  }
+
+  
+
+  /* Features section */
+  .features {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 40px;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .feature-box {
+    background-color: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-box:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    position: absolute;
+    top: 15px;
+    left: 20px;
+  }
+
+  
+
+  /* Testimonials */
+  .testimonials {
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .testimonials h2 {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 40px;
+  }
+  
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .testimonial {
+    background-color: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: 10px;
+    font-style: italic;
+    line-height: 1.6;
+    position: relative;
+  }
+  
+  .testimonial h4 {
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--subtext-color);
+  }
+
+  
+
+  /* Contact Me section */
+  .contact {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .contact h2 {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+  }
+  
+  .contact form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .contact input,
+  .contact textarea {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    color: white;
+  }
+  
+  .contact button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s;
+  }
+  
+  .contact button:hover {
+    background-color: var(--hover-accent);
   }
   
   footer {
-    padding: 20px;
-    background: #111;
+    background: var(--footer-bg);
+    color: #bbb;
     font-size: 0.9rem;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  footer a {
+    color: var(--accent-color);
+    text-decoration: none;
   }
   
