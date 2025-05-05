@@ -19,7 +19,9 @@
     color: var(--text-color);
     text-align: center;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
+  
   
 
   /* Hero Section */
@@ -265,5 +267,45 @@
   footer a {
     color: var(--accent-color);
     text-decoration: none;
+  }
+  
+
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+  
+    .hero p {
+      font-size: 1rem;
+    }
+  
+    .mission-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .mission-image,
+    .mission-text {
+      padding: 10px;
+    }
+  
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .testimonial-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .contact form {
+      width: 100%;
+      padding: 0 10px;
+    }
+  
+    .cta-button {
+      padding: 12px 20px;
+      font-size: 1rem;
+    }
   }
   

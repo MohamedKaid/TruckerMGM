@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TruckerMGM - Smart Dispatching</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 </head>
 <body>
     <header class="hero">
@@ -16,7 +19,7 @@
         </div>
     </header>
     
-    <section class="mission">
+    <section class="mission" data-aos="fade-up">
         <div class="mission-content">
           <div class="mission-text">
             <h2>OUR MISSION</h2>
@@ -26,7 +29,7 @@
             </p>
       </section>
 
-      <section class="features">
+      <div class="feature-box" data-aos="zoom-in">
         <h2>WHAT YOU GET</h2>
         <div class="features-grid">
           <div class="feature-box">
@@ -52,7 +55,7 @@
         </div>
       </section>
 
-      <section class="testimonials">
+      <section class="testimonials" data-aos="fade-up">
         <h2>WHAT OUR USERS SAY</h2>
         <div class="testimonial-grid">
           <div class="testimonial">
@@ -70,7 +73,7 @@
         </div>
       </section>
 
-      <section class="contact">
+      <section class="contact" data-aos="fade-up">
         <h2>GET IN TOUCH</h2>
         <form action="#" method="POST">
           <input type="text" placeholder="Your Name" required />
@@ -83,5 +86,15 @@
       <footer>
         <p>© 2025 TruckerMGM • Built by Mohamed Kaid • <a href="https://github.com/MohamedKaid" target="_blank">GitHub</a></p>
       </footer>
+
+      <!-- AOS JS -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+        AOS.init({
+            once: true,
+            duration: 800,
+        });
+        </script>
+
 </body>
 </html>
